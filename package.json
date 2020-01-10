@@ -1,0 +1,23 @@
+{
+  "name": "wizard",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "crypto-random-string": "^3.0.1",
+    "enquirer": "^2.3.2",
+    "ip": "^1.1.5",
+    "open": "^7.0.0"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "config.js",
+      "develop.config.js"
+    ]
+  }
+}
