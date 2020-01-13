@@ -17,7 +17,8 @@
   "nodemonConfig": {
     "ignore": [
       "config.js",
-      "develop.config.js"
+      "develop.config.js",
+      "mixin.key"
     ]
   }
 }

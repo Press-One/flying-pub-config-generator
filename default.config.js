@@ -1,13 +1,7 @@
-const serviceKey = 'LOCAL_PUB';
-
 module.exports = {
   debug: false,
 
-  serviceKey,
-
-  env: 'development',
-
-  serviceRoot: '',
+  serviceKey: '',
 
   host: '127.0.0.1',
 
@@ -34,7 +28,7 @@ module.exports = {
   },
 
   session: {
-    key: `${serviceKey}:sess`,
+    key: '',
     maxAge: 1000 * 60 * 60 * 24,
     overwrite: true,
     httpOnly: true,
@@ -46,7 +40,7 @@ module.exports = {
   provider: {
     mixin: {
       loginUrl: '/api/auth/mixin/login',
-      callbackUrl: ''
+      callbackUrl: `/api/auth/mixin/callback`
     }
   },
 
@@ -74,7 +68,7 @@ module.exports = {
   },
 
   auth: {
-    tokenKey: `${serviceKey}_token`,
+    tokenKey: '',
     whitelist: {
       mixin: [1095057],
       github: []
