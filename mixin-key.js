@@ -1,7 +1,27 @@
+const Prompt = require('./prompt');
+const fs = require('fs');
 const util = require('util');
 const exec = util.promisify(require('child_process').execFile);
+const writeFile = util.promisify(fs.writeFile);
+const unlink = util.promisify(fs.unlink);
 
-exports.decrypt = async (options = {}) => {
+exports.create = async (type) => {
+  const mixin = await Prompt.mixin(type);
+  const keyPath = 'mixin.key';
+  await writeFile('mixin.key', mixin.privateKey);
+  const aesKey = await decrypt({
+    keyPath,
+    sessionId: mixin.sessionId,
+    pinToken: mixin.pinToken
+  });
+  await unlink(keyPath);
+  return {
+    aesKey,
+    ...mixin
+  };
+};
+
+const decrypt = async (options = {}) => {
   const {
     keyPath,
     sessionId,
@@ -18,8 +38,8 @@ exports.decrypt = async (options = {}) => {
     stderr
   } = await exec(cmd, args);
   if (stdout) {
-    const aseKey = stdout.trim();
-    return aseKey;
+    const aesKey = stdout.trim();
+    return aesKey;
   }
   if (stderr) {
     console.log('stderr:', stderr);
