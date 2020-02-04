@@ -3,25 +3,51 @@ version: '3'
 services:
   pub:
     image: 'pub'
-    restart: 'always'
+    command: bash -c "cd be && yarn start-prod"
     ports:
       - '8000:8000'
     volumes:
       - ./config/config.pub.js:/app/be/config.js:ro
       - ./config/config.pub-wallet.js:/app/be/config.wallet.js
+    restart: 'always'
     depends_on:
       - postgres
+      - redis
+
+  pub-queue:
+    image: 'pub'
+    command: bash -c "cd be && yarn start-queue-prod"
+    volumes:
+      - ./config/config.pub.js:/app/be/config.js:ro
+      - ./config/config.pub-wallet.js:/app/be/config.wallet.js
+    restart: 'always'
+    depends_on:
+      - postgres
+      - redis
 
   posts:
     image: 'posts'
-    restart: 'always'
-    ports:d
+    command: bash -c "cd be && yarn start-prod"
+    ports:
       - '9000:9000'
     volumes:
       - ./config/config.posts.js:/app/be/config.js:ro
       - ./config/config.posts-wallet.js:/app/be/config.wallet.js
+    restart: 'always'
     depends_on:
       - postgres
+      - redis
+
+  posts-queue:
+    image: 'posts'
+    command: bash -c "cd be && yarn start-queue-prod"
+    volumes:
+      - ./config/config.posts.js:/app/be/config.js:ro
+      - ./config/config.posts-wallet.js:/app/be/config.wallet.js
+    restart: 'always'
+    depends_on:
+      - postgres
+      - redis
 
   atom:
     image: dh.press.one/pressone/atom
@@ -50,16 +76,16 @@ services:
       - 5432:5432
     volumes:
       - ./pg-init-scripts:/docker-entrypoint-initdb.d
-      - ./postgresql:/var/lib/postgresql/data
+      - ./postgresql_5:/var/lib/postgresql/data
     environment:
-      POSTGRES_MULTIPLE_DATABASES: pub1,pub2
+      POSTGRES_MULTIPLE_DATABASES: pub,pub_wallet,posts,posts_wallet,atom
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 8e01d6f60c7a846c38d5f99cf3f53383
 
   redis:
-    image: 'index.docker.io/library/redis:alpine'
-    restart: 'always'
+    image: 'redis:alpine'
     ports:
       - '6379:6379'
     volumes:
       - './config/redis.conf:/etc/redis/redis.conf:ro'
+    restart: 'always'

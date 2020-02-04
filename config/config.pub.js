@@ -11,7 +11,7 @@ module.exports = {
 
   'serviceKey': `${serviceKey}`,
 
-  'host': `127.0.0.1`,
+  'host': `192.168.2.190`,
 
   'port': 8000,
 
@@ -22,7 +22,7 @@ module.exports = {
   'logo': `https://xue-images.pek3b.qingstor.com/17-flying-pub.png`,
 
   'db': {
-    'host': `127.0.0.1`,
+    'host': `192.168.2.190`,
     'database': `pub`,
     'user': `postgres`,
     'password': `8e01d6f60c7a846c38d5f99cf3f53383`,
@@ -30,7 +30,7 @@ module.exports = {
   },
 
   'redis': {
-    'host': `127.0.0.1`,
+    'host': `192.168.2.190`,
     'port': 6379,
     'connectTimeout': 3000,
   },

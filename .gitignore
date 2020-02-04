@@ -3,3 +3,4 @@ config
 output
 postgresql
 redis
+config/*
