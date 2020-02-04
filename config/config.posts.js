@@ -1,4 +1,4 @@
-const serviceRoot = "http://localhost:9000";
+const serviceRoot = "http://192.168.2.190:9000";
 const serviceKey = "POSTS";
 
 module.exports = {
@@ -60,9 +60,9 @@ module.exports = {
   },
 
   'atom': {
-    'topic': `b922d4c0fdf5649addd509954e89daea203ff989`,
-    'authorsUrl': `http://192.168.31.120:7070/users`,
-    'postsUrl': `http://192.168.31.120:7070/posts`,
+    'topic': `c92f651038f333087c650408b2c164d9b7f92ab2`,
+    'authorsUrl': `http://192.168.2.190:7070/users`,
+    'postsUrl': `http://192.168.2.190:7070/json_posts`,
   },
 
   'settings': {
@@ -74,8 +74,8 @@ module.exports = {
     'filter.enabled': true,
     'filter.type': `POPULARITY`,
     'filter.popularity.enabled': false,
-    'filter.dayRangeOptions': [3,7,30,0],
-    'wallet.currencies': ['CNB','PRS','BOX','BTC','EOS','ETH'],
+    'filter.dayRangeOptions': [3, 7, 30, 0],
+    'wallet.currencies': ['CNB', 'PRS', 'BOX', 'BTC', 'EOS', 'ETH'],
     'pub.site.url': `https://write.firesbox.com`,
     'menu.links': [],
     'permission.isPrivate': false,
@@ -93,13 +93,19 @@ module.exports = {
   },
 
   'encryption': {
-    'sessionKeys': ['bcc14a26b8656a2220c94b6066f57709'],
-    'jwtKey': `0a40f5a06cb20382911f761eeeddf0ae9f32b43f1a8dbe3cdf4bd8d74c26507f`,
+    'sessionKeys': ['0c53f6a725d7a70aa9136d4002c56cbd'],
+    'jwtKey': `02009368009eb6f45a8061d3fa42aa5e091b9591b5adaf3e634a654aa86243a9`,
     'aes256Cbc': {
-      'key': `c2db7fb2297fd1eb1485960e026f4d7de91b159cebdf9701dde6d2525bec1b36`,
-      'ivPrefix': `ac88a8805ef69e4f2c5dc9718fd53afa76d3557e57a22790a6b05931d6f22c01`,
+      'key': `6538634c745dec3b883ea250292df1404b38f48c065455a746e86edbe11a7d26`,
+      'ivPrefix': `4af209120c8d3cf196f1434225f3a688e7146af10c3b4378af90fc971f870685`,
     },
-    'aesKey256': [5,8,9,0,6,27,0,10,31,11,19,24,23,23,19,28,20,22,27,30,14,23,18,8,12,21,27,11,9,17,21,4],
+    'aesKey256': [15, 15, 7, 24, 28, 5, 0, 5, 25, 7, 11, 24, 24, 11, 30, 14, 21, 27, 6, 23, 17, 22, 28, 31, 23, 25, 26, 17, 28, 25, 4, 30],
   },
 
+  // 以下配置不属于开源配置
+
+  telegramBot: {
+    enabled: true,
+    url: 'http://dev.press.one:8091/forward'
+  }
 }

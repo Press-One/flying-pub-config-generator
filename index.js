@@ -4,6 +4,7 @@ const util = require('util');
 const ip = require('ip');
 const defaultPubConfig = require('./default/config.pub');
 const defaultPostsConfig = require('./default/config.posts');
+const defaultWalletConfig = require('./default/config.wallet');
 const Encryption = require('./encryption-key');
 const MixinKey = require('./mixin-key');
 const Topic = require('./topic');
@@ -14,12 +15,14 @@ const main = async () => {
   const pubConfig = await generatePubConfig(defaultPubConfig);
   const atomConfig = await generateAtomConfig(pubConfig);
   await generatePostsConfig(defaultPostsConfig, pubConfig, atomConfig);
+  await generateWalletConfig('pub', defaultWalletConfig, );
+  await generateWalletConfig('posts', defaultWalletConfig);
 };
 
 const generatePubConfig = async config => {
-  config.encryption = Encryption.create();
+  config.encryption = Encryption.createPubAndPostEncryption();
   config.topic = Topic.create();
-  const mixin = await MixinKey.create('pub');
+  const mixin = await MixinKey.create('pub', config);
   appendMixin(config, mixin);
   appendVariables(config);
   const filename = 'config.pub.js';
@@ -30,13 +33,23 @@ const generatePubConfig = async config => {
   return config;
 };
 
+const generateWalletConfig = async (type, config) => {
+  config.encryption = Encryption.createWalletEncryption();
+  config.db.database = `${type}_wallet`;
+  const filename = `config.${type}-wallet.js`;
+  const configString = Stringify.getConfigString(config);
+  await writeConfigJs(filename, '', configString);
+  console.log(`已生成配置文件 config/${filename}\n`);
+  return config;
+}
+
 const generateAtomConfig = async pubConfig => {
   const config = {
     RUST_LOG: 'debug',
-    POSTGRES_PASSWORD: '0c7f7ba8cca580c550e5f16023a6681f',
+    POSTGRES_PASSWORD: '8e01d6f60c7a846c38d5f99cf3f53383',
     POSTGRES_DB: 'atom',
-    DATABASE_URL: 'postgres://postgres:0c7f7ba8cca580c550e5f16023a6681f@localhost:5432/atom',
-    EOS_BASE_URL: 'https://prs-bp1.press.one/api/chain',
+    DATABASE_URL: `postgres://postgres:8e01d6f60c7a846c38d5f99cf3f53383@${ip.address()}:5432/atom`,
+    PRS_BASE_URL: 'https://prs-bp1.press.one/api/chain',
     TOPIC: `${pubConfig.topic.address};http://${ip.address()}:${pubConfig.port}/api/webhook/medium`,
     BIND_ADDRESS: '0.0.0.0:7070',
     ENCRYPTION_KEY: pubConfig.encryption.aes256Cbc.key,
@@ -55,14 +68,14 @@ const generateAtomConfig = async pubConfig => {
 };
 
 const generatePostsConfig = async (config, pubConfig, atomConfig) => {
-  config.encryption = Encryption.create();
+  config.encryption = Encryption.createPubAndPostEncryption();
   const atomPort = atomConfig.BIND_ADDRESS.split(':')[1];
   config.atom = {
     topic: pubConfig.topic.address,
     authorsUrl: `http://${ip.address()}:${atomPort}/users`,
-    postsUrl: `http://${ip.address()}:${atomPort}/posts`
+    postsUrl: `http://${ip.address()}:${atomPort}/json_posts`
   };
-  const mixin = await MixinKey.create('posts');
+  const mixin = await MixinKey.create('posts', config);
   appendMixin(config, mixin);
   appendVariables(config);
   const filename = 'config.posts.js';
@@ -99,6 +112,10 @@ const start = async () => {
   try {
     await main();
   } catch (err) {
+    if (!err.message) {
+      console.log('已退出程序');
+      return;
+    }
     console.log(`程序停止了，因为：${err.message}`);
   }
 };

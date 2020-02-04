@@ -5,8 +5,10 @@ const exec = util.promisify(require('child_process').execFile);
 const writeFile = util.promisify(fs.writeFile);
 const unlink = util.promisify(fs.unlink);
 
-exports.create = async (type) => {
-  const mixin = await Prompt.mixin(type);
+exports.create = async (type, config) => {
+  const homeUrl = `http://localhost:${config.port}`;
+  const callbackUrl = `${homeUrl}${config.provider.mixin.callbackUrl}`;
+  const mixin = await Prompt.mixin(type, homeUrl, callbackUrl);
   const keyPath = 'mixin.key';
   await writeFile('mixin.key', mixin.privateKey);
   const aesKey = await decrypt({

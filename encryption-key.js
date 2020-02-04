@@ -1,6 +1,6 @@
 const cryptoRandomString = require('crypto-random-string');
 
-exports.create = () => ({
+exports.createPubAndPostEncryption = () => ({
   sessionKeys: [CRS(32)],
   jwtKey: CRS(64),
   aes256Cbc: {
@@ -10,6 +10,11 @@ exports.create = () => ({
   aesKey256: aesKey256()
 });
 
+exports.createWalletEncryption = () => ({
+  salt: randomNumber(6),
+  aesKey256: aesKey256()
+})
+
 const CRS = (length) => cryptoRandomString({
   length
 });
@@ -17,3 +22,16 @@ const CRS = (length) => cryptoRandomString({
 const aesKey256 = () => Array.from({
   length: 32
 }, () => Math.floor(Math.random() * 32));
+
+const randomNumber = bit => {
+  let str = '';
+  let i = 0;
+  while (i < bit) {
+    const number = Math.round(Math.random() * 9);
+    if (str || number > 0) {
+      str += number;
+      i++;
+    }
+  }
+  return Number(str);
+}

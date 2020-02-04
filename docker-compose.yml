@@ -1,0 +1,65 @@
+version: '3'
+
+services:
+  pub:
+    image: 'pub'
+    restart: 'always'
+    ports:
+      - '8000:8000'
+    volumes:
+      - ./config/config.pub.js:/app/be/config.js:ro
+      - ./config/config.pub-wallet.js:/app/be/config.wallet.js
+    depends_on:
+      - postgres
+
+  posts:
+    image: 'posts'
+    restart: 'always'
+    ports:d
+      - '9000:9000'
+    volumes:
+      - ./config/config.posts.js:/app/be/config.js:ro
+      - ./config/config.posts-wallet.js:/app/be/config.wallet.js
+    depends_on:
+      - postgres
+
+  atom:
+    image: dh.press.one/pressone/atom
+    env_file:
+      - ./config/atom.env
+    command: bash -c "/wait-for-it.sh postgres:5432 -- diesel migration run && /app/atom syncserver ${BLOCK_NUM}"
+    restart: always
+    depends_on:
+      - postgres
+
+  web:
+    image: dh.press.one/pressone/atom
+    env_file:
+      - ./config/atom.env
+    command: bash -c "/wait-for-it.sh postgres:5432 -- diesel migration run && /app/atom web"
+    ports:
+      - ${WEB_PORT}:7070
+    restart: always
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres
+    hostname: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - ./pg-init-scripts:/docker-entrypoint-initdb.d
+      - ./postgresql:/var/lib/postgresql/data
+    environment:
+      POSTGRES_MULTIPLE_DATABASES: pub1,pub2
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 8e01d6f60c7a846c38d5f99cf3f53383
+
+  redis:
+    image: 'index.docker.io/library/redis:alpine'
+    restart: 'always'
+    ports:
+      - '6379:6379'
+    volumes:
+      - './config/redis.conf:/etc/redis/redis.conf:ro'

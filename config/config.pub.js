@@ -1,4 +1,4 @@
-const serviceRoot = "http://localhost:8000";
+const serviceRoot = "http://192.168.2.190:8000";
 const serviceKey = "PUB";
 
 module.exports = {
@@ -60,18 +60,18 @@ module.exports = {
   },
 
   'topic': {
-    'privateKey': `eda5e45eb6291ba3e03b2727155d3ad83fc85eeebdfee552013bbb58270cde75`,
-    'address': `b922d4c0fdf5649addd509954e89daea203ff989`,
+    'privateKey': `eafe937c180ec3131254f420c9be44867c9d88d7ff9081f9058c63957eb420d1`,
+    'address': `c92f651038f333087c650408b2c164d9b7f92ab2`,
   },
 
   'settings': {
-    'site.name': `飞帖开发版`,
-    'site.title': `开发版 | 飞贴`,
+    'site.name': `飞帖写作站`,
+    'site.title': `写作站开发版 | 飞帖`,
     'site.shortTitle': `飞帖写作站`,
     'site.slogan': `基于区块链的分布式数字内容交易及分发网络`,
     'reader.url': ``,
     'reader.rulePostUrl': ``,
-    'wallet.currencies': ['CNB','PRS','BOX','BTC','EOS','ETH'],
+    'wallet.currencies': ['CNB', 'PRS', 'BOX', 'BTC', 'EOS', 'ETH'],
     'auth.providers': ['mixin'],
     'permission.isPrivate': false,
     'permission.denyText': `您需要加入【飞帖开发版】才能阅读内容`,
@@ -89,13 +89,25 @@ module.exports = {
   },
 
   'encryption': {
-    'sessionKeys': ['293a5518dab44af789e09ccab7fe619b'],
-    'jwtKey': `b3406e59c97332760f5f4861cee37e91abbce9539f837d35939a52b31398c950`,
+    'sessionKeys': ['61c4f467f2e9ccc46232ee25cb5ffc08'],
+    'jwtKey': `d4d6482040af74658a97b4322969cc0fd52c48cb3f5a533cece653182837f804`,
     'aes256Cbc': {
-      'key': `0c778a08fad9d08d2c34b1639bca35cb0188191b5045b31c407bcf27f42add21`,
-      'ivPrefix': `0285bb1b0b05912ac99ef7b2a80bffd8b7f564b613adc825e2b9e818342be72b`,
+      'key': `1036c19dbb1dce25cfac89c0c4f82fbdf1dd3700369f8719fa44587b8c4e1bb5`,
+      'ivPrefix': `2b1ae6b159c7c1990273442fd43a10498d4bf1fb8f3b8d6739889e04a484b9d1`,
     },
-    'aesKey256': [14,12,11,14,18,22,13,2,12,9,2,18,7,23,25,6,13,16,1,1,4,5,0,21,2,14,16,12,19,19,23,2],
+    'aesKey256': [6, 31, 18, 4, 5, 12, 0, 5, 21, 8, 6, 6, 31, 2, 28, 13, 3, 24, 23, 19, 10, 3, 6, 28, 2, 7, 11, 29, 27, 28, 10, 14],
   },
 
+  // 以下配置不属于开源配置
+  telegramBot: {
+    enabled: true,
+    url: 'http://dev.press.one:8091/forward'
+  },
+
+  qingCloud: {
+    accessKeyId: 'JKYQFBAPQERCWGJTTXAA',
+    secretAccessKey: 'ZFzuDynfMEQJrlF2ZLIoZtBiPFSMuAMgUmXAi6Rg',
+    zone: 'pek3b',
+    bucketName: 'pub-images'
+  }
 }
