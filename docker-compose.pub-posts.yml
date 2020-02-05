@@ -1,0 +1,50 @@
+version: '3'
+
+services:
+  pub:
+    image: 'pub'
+    command: bash -c "cd be && yarn start-prod"
+    ports:
+      - '8000:8000'
+    volumes:
+      - ./config/config.pub.js:/app/be/config.js:ro
+      - ./config/config.pub-wallet.js:/app/be/config.wallet.js
+    restart: 'always'
+    depends_on:
+      - postgres
+      - redis
+
+  pub-queue:
+    image: 'pub'
+    command: bash -c "cd be && yarn start-queue-prod"
+    volumes:
+      - ./config/config.pub.js:/app/be/config.js:ro
+      - ./config/config.pub-wallet.js:/app/be/config.wallet.js
+    restart: 'always'
+    depends_on:
+      - postgres
+      - redis
+
+  posts:
+    image: 'posts'
+    command: bash -c "cd be && yarn start-prod"
+    ports:
+      - '9000:9000'
+    volumes:
+      - ./config/config.posts.js:/app/be/config.js:ro
+      - ./config/config.posts-wallet.js:/app/be/config.wallet.js
+    restart: 'always'
+    depends_on:
+      - postgres
+      - redis
+
+  posts-queue:
+    image: 'posts'
+    command: bash -c "cd be && yarn start-queue-prod"
+    volumes:
+      - ./config/config.posts.js:/app/be/config.js:ro
+      - ./config/config.posts-wallet.js:/app/be/config.wallet.js
+    restart: 'always'
+    depends_on:
+      - postgres
+      - redis

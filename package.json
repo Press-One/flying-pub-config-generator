@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "generate_config": "export NODE_ENV='development' && node index.js",
+    "generate_config_prod": "export NODE_ENV='production' && node index.js"
   },
   "author": "",
   "license": "ISC",

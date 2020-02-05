@@ -6,24 +6,21 @@ const Joi = require('joi');
 const {
   attempt
 } = require('./validator');
-
-const sleep = (duration) =>
-  new Promise((resolve) => {
-    setTimeout(resolve, duration);
-  });
+const {
+  sleep
+} = require('./utils');
 
 exports.mixin = async (type, homeUrl, callbackUrl) => {
-  console.log(` ------------- type ---------------`, type);
   const siteName = type === 'pub' ? '写作站' : '阅读站';
   console.log(`请为${siteName}创建一个 Mixin 的 App`);
   console.log(`备注1：The home uri 填写 ${homeUrl}`)
   console.log(`备注2：The OAuth redirect uri 填写 ${callbackUrl}`);
-  await sleep(5000);
+  // await sleep(5000);
   console.log('即将打开创建页面...');
-  await sleep(2000);
+  // await sleep(2000);
   // await sleep(5000);
   // await open('https://developers.mixin.one/dashboard');
-  await sleep(2000);
+  // await sleep(2000);
   console.log('已经创建好了？把 App 的信息告诉我一下');
   const answers = await prompt([{
       type: 'input',

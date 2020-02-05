@@ -1,4 +1,4 @@
-const serviceRoot = "http://192.168.2.190:8000";
+const serviceRoot = "http://localhost:8000";
 const serviceKey = "PUB";
 
 module.exports = {
@@ -11,7 +11,7 @@ module.exports = {
 
   'serviceKey': `${serviceKey}`,
 
-  'host': `192.168.2.190`,
+  'host': `localhost`,
 
   'port': 8000,
 
@@ -22,7 +22,7 @@ module.exports = {
   'logo': `https://xue-images.pek3b.qingstor.com/17-flying-pub.png`,
 
   'db': {
-    'host': `192.168.2.190`, // 127.0.0.1 | postgres
+    'host': `postgres`,
     'database': `pub`,
     'user': `postgres`,
     'password': `8e01d6f60c7a846c38d5f99cf3f53383`,
@@ -30,8 +30,9 @@ module.exports = {
   },
 
   'redis': {
-    'host': `192.168.2.190`, // 127.0.0.1 | redis
+    'host': `redis`,
     'port': 6379,
+    'password': `a863a35d270fceb110f96374d75c219f`,
     'connectTimeout': 3000,
   },
 
@@ -60,8 +61,8 @@ module.exports = {
   },
 
   'topic': {
-    'privateKey': `eafe937c180ec3131254f420c9be44867c9d88d7ff9081f9058c63957eb420d1`,
-    'address': `c92f651038f333087c650408b2c164d9b7f92ab2`,
+    'privateKey': `5fce73522f6a2b9974faf35eae31a556efa07cd62a507c44aac2a7f93fd698b0`,
+    'address': `1f4fbd2d257d8ba1cf9532f7f5eeb89cab02647c`,
   },
 
   'settings': {
@@ -69,9 +70,9 @@ module.exports = {
     'site.title': `写作站开发版 | 飞帖`,
     'site.shortTitle': `飞帖写作站`,
     'site.slogan': `基于区块链的分布式数字内容交易及分发网络`,
-    'reader.url': ``,
+    'reader.url': `http://localhost:9000`,
     'reader.rulePostUrl': ``,
-    'wallet.currencies': ['CNB', 'PRS', 'BOX', 'BTC', 'EOS', 'ETH'],
+    'wallet.currencies': ['CNB','PRS','BOX','BTC','EOS','ETH'],
     'auth.providers': ['mixin'],
     'permission.isPrivate': false,
     'permission.denyText': `您需要加入【飞帖开发版】才能阅读内容`,
@@ -89,25 +90,13 @@ module.exports = {
   },
 
   'encryption': {
-    'sessionKeys': ['61c4f467f2e9ccc46232ee25cb5ffc08'],
-    'jwtKey': `d4d6482040af74658a97b4322969cc0fd52c48cb3f5a533cece653182837f804`,
+    'sessionKeys': ['34e74388efeb966486736790a6036882'],
+    'jwtKey': `85835e654741d8efa2379d60f675e81a5e3fb16f8c9ffb34e9951c0c14a6c152`,
     'aes256Cbc': {
-      'key': `1036c19dbb1dce25cfac89c0c4f82fbdf1dd3700369f8719fa44587b8c4e1bb5`,
-      'ivPrefix': `2b1ae6b159c7c1990273442fd43a10498d4bf1fb8f3b8d6739889e04a484b9d1`,
+      'key': `b14e33ff544e1fcdbd65dcee01a9bf7669ba20266c38bcc4c40d67010ad92cd8`,
+      'ivPrefix': `0bf077323637ce2f2b0b01f07618a92860c8a866dc56c7ff8f6dcd5f58aa5d9c`,
     },
-    'aesKey256': [6, 31, 18, 4, 5, 12, 0, 5, 21, 8, 6, 6, 31, 2, 28, 13, 3, 24, 23, 19, 10, 3, 6, 28, 2, 7, 11, 29, 27, 28, 10, 14],
+    'aesKey256': [2,4,26,12,30,8,25,22,3,6,19,10,16,16,4,21,0,7,15,9,12,18,24,4,27,7,21,20,24,25,7,1],
   },
 
-  // 以下配置不属于开源配置
-  telegramBot: {
-    enabled: true,
-    url: 'http://dev.press.one:8091/forward'
-  },
-
-  qingCloud: {
-    accessKeyId: 'JKYQFBAPQERCWGJTTXAA',
-    secretAccessKey: 'ZFzuDynfMEQJrlF2ZLIoZtBiPFSMuAMgUmXAi6Rg',
-    zone: 'pek3b',
-    bucketName: 'pub-images'
-  }
 }
