@@ -56,16 +56,16 @@ const generateAtomConfig = async pubConfig => {
     RUST_LOG: 'debug',
     POSTGRES_PASSWORD: '8e01d6f60c7a846c38d5f99cf3f53383',
     POSTGRES_DB: 'atom',
-    DATABASE_URL: `postgres://postgres:8e01d6f60c7a846c38d5f99cf3f53383@${ip.address()}:5432/atom`,
+    DATABASE_URL: `postgres://postgres:8e01d6f60c7a846c38d5f99cf3f53383@postgres:5432/atom`,
     PRS_BASE_URL: 'https://prs-bp1.press.one/api/chain',
-    TOPIC: `${pubConfig.topic.address};http://${ip.address()}:${
+    TOPIC: `${pubConfig.topic.address};http://${isProd ? 'pub' : ip.address()}:${
       pubConfig.port
     }/api/webhook/medium`,
     BIND_ADDRESS: '0.0.0.0:7070',
     ENCRYPTION_KEY: pubConfig.encryption.aes256Cbc.key,
     IV_PREFIX: pubConfig.encryption.aes256Cbc.ivPrefix,
     XML_OUTPUT_DIR: `${__dirname}/output`,
-    THREAD_NUM: '20'
+    THREAD_NUM: '10'
   };
   let string = '';
   for (let key in config) {
@@ -86,10 +86,10 @@ const generatePostsConfig = async (config, pubConfig, atomConfig) => {
   config.atom = {
     topic: pubConfig.topic.address,
     authorsUrl: `http://${
-      isProd ? 'atom_web' : ip.address()
+      isProd ? 'atom_web' : 'localhost'
     }:${atomPort}/users`,
     postsUrl: `http://${
-      isProd ? 'atom_web' : ip.address()
+      isProd ? 'atom_web' : 'localhost'
     }:${atomPort}/json_posts`
   };
   const mixin = await MixinKey.create('posts', config);
