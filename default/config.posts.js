@@ -80,5 +80,12 @@ module.exports = {
       mixin: [],
       github: []
     }
+  },
+
+  // console.log(` ------------- hard code ---------------`);
+  // debugger by Junhong
+  bot: {
+    enabled: true,
+    url: 'http://dev.press.one:8091/forward'
   }
 };

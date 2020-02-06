@@ -65,7 +65,7 @@ const generateAtomConfig = async pubConfig => {
     ENCRYPTION_KEY: pubConfig.encryption.aes256Cbc.key,
     IV_PREFIX: pubConfig.encryption.aes256Cbc.ivPrefix,
     XML_OUTPUT_DIR: `${__dirname}/output`,
-    THREAD_NUM: '10'
+    THREAD_NUM: '30'
   };
   let string = '';
   for (let key in config) {

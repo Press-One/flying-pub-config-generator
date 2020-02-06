@@ -1,0 +1,1 @@
+npm run generate_config_prod
