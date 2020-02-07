@@ -1,6 +1,7 @@
 docker-compose -f docker-compose.yml -f docker-compose.pub-posts.yml down --remove-orphans &&
 
-# console.log(` ------------- hard code ---------------`);
+echo " ------------- hard code --------------- "
 rm -rf postgresql &&
+rm -rf redis &&
 
 docker-compose -f docker-compose.yml -f docker-compose.pub-posts.yml up -d
