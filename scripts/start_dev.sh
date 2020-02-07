@@ -2,5 +2,6 @@ docker-compose -f docker-compose.yml -f docker-compose.pub-posts.yml down --remo
 
 # console.log(` ------------- hard code ---------------`);
 rm -rf postgresql &&
+rm -rf redis &&
 
 docker-compose up -d
