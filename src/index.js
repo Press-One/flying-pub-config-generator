@@ -13,7 +13,7 @@ const writeFile = util.promisify(fs.writeFile);
 const {
   sleep
 } = require('./utils');
-const distDir = `config_${process.env.NODE_ENV}`;
+const distDir = `./config_${process.env.NODE_ENV}`;
 const isProd = process.env.NODE_ENV === 'production';
 
 const main = async () => {
@@ -139,16 +139,4 @@ const appendVariables = (type, config) => {
   }
 };
 
-const start = async () => {
-  try {
-    await main();
-  } catch (err) {
-    if (!err.message) {
-      console.log('已退出程序');
-      return;
-    }
-    console.log(`程序停止了，因为：${err.message}`);
-  }
-};
-
-start();
+exports.main = main;

@@ -29,7 +29,12 @@ const decrypt = async (options = {}) => {
     sessionId,
     pinToken
   } = options;
-  const cmd = './decryptkey';
+  const os_decrypt_file = {
+    'linux': 'decryptkey_linux',
+    'darwin': 'decryptkey_mac',
+    'win32': 'decryptkey.exe'
+  };
+  const cmd = `./${os_decrypt_file[process.platform]}`;
   const args = [
     '-key', keyPath,
     '-label', sessionId,

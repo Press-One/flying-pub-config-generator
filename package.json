@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "generate_config": "export NODE_ENV='development' && node index.js",
-    "generate_config_prod": "export NODE_ENV='production' && node index.js"
+    "generate_config": "export NODE_ENV='development' && node main.js",
+    "generate_config_prod": "export NODE_ENV='production' && node main.js"
   },
   "author": "",
   "license": "ISC",
