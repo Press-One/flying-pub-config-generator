@@ -1,0 +1,1 @@
+docker build -t flying-pub-config-generator .
