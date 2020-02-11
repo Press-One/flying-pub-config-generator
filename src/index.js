@@ -3,7 +3,7 @@ const path = require('path');
 const util = require('util');
 const ip = require('ip');
 const defaultPubConfig = require('./default/config.pub');
-const defaultPostsConfig = require('./default/config.posts');
+const defaultReaderConfig = require('./default/config.reader');
 const defaultWalletConfig = require('./default/config.wallet');
 const Encryption = require('./encryption-key');
 const MixinKey = require('./mixin-key');
@@ -21,9 +21,9 @@ const main = async () => {
   // await sleep(1000);
   const atomConfig = await generateAtomConfig(pubConfig);
   // await sleep(1000);
-  await generatePostsConfig(defaultPostsConfig, pubConfig, atomConfig);
+  await generateReaderConfig(defaultReaderConfig, pubConfig, atomConfig);
   await generateWalletConfig('pub', defaultWalletConfig);
-  await generateWalletConfig('posts', defaultWalletConfig);
+  await generateWalletConfig('reader', defaultWalletConfig);
 };
 
 const generatePubConfig = async config => {
@@ -80,8 +80,8 @@ const generateAtomConfig = async pubConfig => {
   return config;
 };
 
-const generatePostsConfig = async (config, pubConfig, atomConfig) => {
-  config.encryption = Encryption.createEncryption('posts');
+const generateReaderConfig = async (config, pubConfig, atomConfig) => {
+  config.encryption = Encryption.createEncryption('reader');
   const atomPort = atomConfig.BIND_ADDRESS.split(':')[1];
   config.atom = {
     topic: pubConfig.topic.address,
@@ -92,11 +92,11 @@ const generatePostsConfig = async (config, pubConfig, atomConfig) => {
       isProd ? 'atom_web' : 'localhost'
     }:${atomPort}/json_posts`
   };
-  const mixin = await MixinKey.create('posts', config);
+  const mixin = await MixinKey.create('reader', config);
   appendMixin(config, mixin);
-  appendVariables('posts', config);
-  const filename = 'config.posts.js';
-  const variableString = Stringify.getVariableString(config.port, 'POSTS');
+  appendVariables('reader', config);
+  const filename = 'config.reader.js';
+  const variableString = Stringify.getVariableString(config.port, 'READER');
   const configString = Stringify.getConfigString(config);
   await writeConfigJs(filename, variableString, configString);
   console.log(`已生成配置文件 ${distDir}/${filename}`);
@@ -130,8 +130,8 @@ const appendVariables = (type, config) => {
   if (type === 'pub') {
     config.settings[
       'reader.url'
-    ] = `http://localhost:${defaultPostsConfig.port}`;
-  } else if (type === 'posts') {
+    ] = `http://localhost:${defaultReaderConfig.port}`;
+  } else if (type === 'reader') {
     config.settings[
       'pub.site.url'
     ] = `http://localhost:${defaultPubConfig.port}`;

@@ -61,7 +61,7 @@ exports.mixin = async (type, homeUrl, callbackUrl) => {
     answers.pin_token = 'z42L6uSFOdCU6X/aC0WmDv+0IVpd1Ja+J0w6kk1i2AjBsk7ujxZVkZB1vT0a1T6TzPTlFOuU9yhPhWKHk477yxWZrHlgvKkKk2LMZSnYTzpB+aVIkPG65MjLOplRV4sD7WMSh8vbFppRE0L2sQvOeM3jLU/WlNDkwaWDhdtpn5A=';
     answers.private_key = '-----BEGIN RSA PRIVATE KEY-----\r\nMIICXQIBAAKBgQDoW2Fz+cP4BGizSsyoJdoIg2bUfz7fNQRx3CusTz8qIGhaCuTS\r\nJU2EpAezHTDmzMiVNUay5vP/TH2zoOPD76mz4NmVsuwXEWVPImJMc/QZ8kHHQ1gN\r\npQrrfOd7oahvZiTbAyKxqmW+sBwc9D+HHJrG2O1kbGzkqej0A9L46NhdGwIDAQAB\r\nAoGBAIwAg3edxrZp8awWJborFHSMuCjRgtB64XK5dpccKLL5U+btKXJ1h3+kVf9W\r\nV2C5gyJkN3UUM3BgZl0VVCd7AIR7jv9FphbjmHaPdXSttP8oCBJMeEXixs2+jXID\r\nIElUIPopKI+N3hZsag/i1yZIxeHmF/N6Q9fcHl62nlrbNiwBAkEA/hIGk4C7aqO3\r\n0sqiUeAYImDaYQp0BMBbHn3wJZhuIRJzi/jMhV6LD9begEonIKBNdOGyzAb9A+Mg\r\nSdsX4sBZ2QJBAOofI4bnpXFXNE2lvqaUVq45Vo2XwAmYquNsImec/nDHNnC3AxSM\r\n+4uFlEGAT5iHRGl6uWRK0XN3i8+QCboOAhMCQDU3U1dL7HWOqy8ksFET7hotTTBs\r\nPxbLr4o4eLd3MQIOWlNkHnqE7f24VMxsO7vSt8aWi5u+jvpkdVvi3yLohSkCQGXL\r\nWjga2h1YrD4ila16C+I+vfpcg7vobEzrxF3Grf69L1d8y1MRJYH5d4evUWxhTAaM\r\nvLT1rvIEhX6fAwupcY8CQQDg+rRXCMrgGQv4LF1jmdR2ZsS/8sGvDbtBFUk9TrmX\r\n83qHKq2OpvbqTR3wBSu+VecFktsSRF6xrDqOs7855SWB\r\n-----END RSA PRIVATE KEY-----\r\n';
   }
-  if (type === 'posts') {
+  if (type === 'reader') {
     answers.secret = '5c01a9d07ec45d6bff2a5360cb97a07a457a5f75d6fefc163e8d9f4d0451cdd6';
     answers.pin = '851623';
     answers.client_id = '44931a6d-2029-4c8d-888f-cbb3afe509bb';

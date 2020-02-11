@@ -10,7 +10,7 @@ exports.createEncryption = type => {
     },
     aesKey256: aesKey256()
   };
-  if (type === 'posts') {
+  if (type === 'reader') {
     delete encryption.aes256Cbc;
   }
   return encryption;

@@ -19,7 +19,7 @@ module.exports = {
 
   db: {
     host: '',
-    database: 'posts',
+    database: 'reader',
     user: 'postgres',
     password: '8e01d6f60c7a846c38d5f99cf3f53383',
     dialect: 'postgres'
@@ -49,11 +49,7 @@ module.exports = {
     }
   },
 
-  atom: {
-    // topic: 'f62dbcc26f79dbbd0bc24640971ae8390f417a62',
-    // authorsUrl: `/users`,
-    // postsUrl: `/posts`
-  },
+  atom: {},
 
   settings: {
     'site.name': '飞帖开发版',
