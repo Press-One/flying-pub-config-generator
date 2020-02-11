@@ -1,14 +1,20 @@
 const cryptoRandomString = require('crypto-random-string');
 
-exports.createPubAndPostEncryption = () => ({
-  sessionKeys: [CRS(32)],
-  jwtKey: CRS(64),
-  aes256Cbc: {
-    key: CRS(64),
-    ivPrefix: CRS(64)
-  },
-  aesKey256: aesKey256()
-});
+exports.createEncryption = type => {
+  const encryption = {
+    sessionKeys: [CRS(32)],
+    jwtKey: CRS(64),
+    aes256Cbc: {
+      key: CRS(64),
+      ivPrefix: CRS(64)
+    },
+    aesKey256: aesKey256()
+  };
+  if (type === 'posts') {
+    delete encryption.aes256Cbc;
+  }
+  return encryption;
+};
 
 exports.createWalletEncryption = () => ({
   salt: randomNumber(6),

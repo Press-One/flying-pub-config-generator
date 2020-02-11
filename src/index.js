@@ -13,7 +13,7 @@ const writeFile = util.promisify(fs.writeFile);
 const {
   sleep
 } = require('./utils');
-const distDir = `./config_${process.env.NODE_ENV}`;
+const distDir = `./config`;
 const isProd = process.env.NODE_ENV === 'production';
 
 const main = async () => {
@@ -27,7 +27,7 @@ const main = async () => {
 };
 
 const generatePubConfig = async config => {
-  config.encryption = Encryption.createPubAndPostEncryption();
+  config.encryption = Encryption.createEncryption('pub');
   config.topic = Topic.create();
   const mixin = await MixinKey.create('pub', config);
   appendMixin(config, mixin);
@@ -81,7 +81,7 @@ const generateAtomConfig = async pubConfig => {
 };
 
 const generatePostsConfig = async (config, pubConfig, atomConfig) => {
-  config.encryption = Encryption.createPubAndPostEncryption();
+  config.encryption = Encryption.createEncryption('posts');
   const atomPort = atomConfig.BIND_ADDRESS.split(':')[1];
   config.atom = {
     topic: pubConfig.topic.address,

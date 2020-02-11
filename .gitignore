@@ -1,7 +1,2 @@
 node_modules
 config
-output
-postgresql
-redis
-config_development
-config_production
