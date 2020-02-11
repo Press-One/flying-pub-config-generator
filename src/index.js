@@ -123,7 +123,6 @@ const appendMixin = (config, mixin) => {
 const appendVariables = (type, config) => {
   config.serviceRoot = `\${serviceRoot}`;
   config.serviceKey = `\${serviceKey}`;
-  config.session.key = `\${serviceKey}:sess`;
   config.auth.tokenKey = `\${serviceKey}_token`;
   config.provider.mixin.callbackUrl = `\${serviceRoot}${config.provider.mixin.callbackUrl}`;
   config.db.host = isProd ? 'postgres' : 'localhost';

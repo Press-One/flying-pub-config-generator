@@ -33,7 +33,7 @@ module.exports = {
   },
 
   session: {
-    key: '',
+    key: 'session',
     maxAge: 1000 * 60 * 60 * 24,
     overwrite: true,
     httpOnly: true,
