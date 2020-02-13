@@ -15,7 +15,6 @@
     "http-status": "^1.4.2",
     "ip": "^1.1.5",
     "joi": "^14.3.1",
-    "open": "^7.0.0",
     "prs-utility": "^0.0.6",
     "request-promise": "^4.2.5"
   },

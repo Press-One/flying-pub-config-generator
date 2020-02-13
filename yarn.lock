@@ -315,11 +315,6 @@ is-hex-prefixed@1.0.0:
   resolved "https://registry.npm.taobao.org/is-hex-prefixed/download/is-hex-prefixed-1.0.0.tgz#7d8d37e6ad77e5d127148913c573e082d777f554"
   integrity sha1-fY035q135dEnFIkTxXPggtd39VQ=
 
-is-wsl@^2.1.0:
-  version "2.1.1"
-  resolved "https://registry.npm.taobao.org/is-wsl/download/is-wsl-2.1.1.tgz#4a1c152d429df3d441669498e2486d3596ebaf1d"
-  integrity sha1-ShwVLUKd89RBZpSY4khtNZbrrx0=
-
 isemail@3.x.x:
   version "3.2.0"
   resolved "https://registry.npm.taobao.org/isemail/download/isemail-3.2.0.tgz#59310a021931a9fb06bbb51e155ce0b3f236832c"
@@ -420,13 +415,6 @@ node@^10.17.0:
   integrity sha1-8yKPIj35/rE+mxSgQTCs502zh3s=
   dependencies:
     node-bin-setup "^1.0.0"
-
-open@^7.0.0:
-  version "7.0.0"
-  resolved "https://registry.npm.taobao.org/open/download/open-7.0.0.tgz#7e52999b14eb73f90f0f0807fe93897c4ae73ec9"
-  integrity sha1-flKZmxTrc/kPDwgH/pOJfErnPsk=
-  dependencies:
-    is-wsl "^2.1.0"
 
 parse-asn1@^5.0.0:
   version "5.1.5"

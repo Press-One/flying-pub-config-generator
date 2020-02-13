@@ -18,12 +18,13 @@ const isProd = process.env.NODE_ENV === 'production';
 
 const main = async () => {
   const pubConfig = await generatePubConfig(defaultPubConfig);
-  // await sleep(1000);
+  await sleep(1000);
   const atomConfig = await generateAtomConfig(pubConfig);
-  // await sleep(1000);
+  await sleep(1000);
   await generateReaderConfig(defaultReaderConfig, pubConfig, atomConfig);
   await generateWalletConfig('pub', defaultWalletConfig);
   await generateWalletConfig('reader', defaultWalletConfig);
+  console.log('\n你已成功生成所有配置文件！');
 };
 
 const generatePubConfig = async config => {
@@ -36,7 +37,7 @@ const generatePubConfig = async config => {
   const variableString = Stringify.getVariableString(config.port, 'PUB');
   const configString = Stringify.getConfigString(config);
   await writeConfigJs(filename, variableString, configString);
-  console.log(`已生成配置文件 ${distDir}/${filename}\n`);
+  console.log(`\n已生成配置文件 ${distDir}/${filename}`);
   return config;
 };
 
@@ -47,7 +48,7 @@ const generateWalletConfig = async (type, config) => {
   const filename = `config.${type}-wallet.js`;
   const configString = Stringify.getConfigString(config);
   await writeConfigJs(filename, '', configString);
-  console.log(`已生成配置文件 ${distDir}/${filename}\n`);
+  console.log(`\n已生成配置文件 ${distDir}/${filename}`);
   return config;
 };
 
@@ -65,7 +66,7 @@ const generateAtomConfig = async pubConfig => {
     ENCRYPTION_KEY: pubConfig.encryption.aes256Cbc.key,
     IV_PREFIX: pubConfig.encryption.aes256Cbc.ivPrefix,
     XML_OUTPUT_DIR: `${__dirname}/output`,
-    THREAD_NUM: '30'
+    THREAD_NUM: '50'
   };
   let string = '';
   for (let key in config) {
@@ -76,7 +77,7 @@ const generateAtomConfig = async pubConfig => {
     fs.mkdirSync(distDir);
   }
   await writeFile(path.join(distDir, filename), string);
-  console.log(`已生成配置文件 ${distDir}/${filename}\n`);
+  console.log(`\n已生成配置文件 ${distDir}/${filename}`);
   return config;
 };
 
@@ -99,7 +100,7 @@ const generateReaderConfig = async (config, pubConfig, atomConfig) => {
   const variableString = Stringify.getVariableString(config.port, 'READER');
   const configString = Stringify.getConfigString(config);
   await writeConfigJs(filename, variableString, configString);
-  console.log(`已生成配置文件 ${distDir}/${filename}`);
+  console.log(`\n已生成配置文件 ${distDir}/${filename}`);
 };
 
 const writeConfigJs = async (filename, variableString, configString) => {
@@ -123,7 +124,7 @@ const appendMixin = (config, mixin) => {
 const appendVariables = (type, config) => {
   config.serviceRoot = `\${serviceRoot}`;
   config.serviceKey = `\${serviceKey}`;
-  config.auth.tokenKey = `\${serviceKey}_token`;
+  config.auth.tokenKey = `\${serviceKey}token`;
   config.provider.mixin.callbackUrl = `\${serviceRoot}${config.provider.mixin.callbackUrl}`;
   config.db.host = isProd ? 'postgres' : 'localhost';
   config.redis.host = isProd ? 'redis' : 'localhost';
