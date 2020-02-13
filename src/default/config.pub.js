@@ -21,7 +21,7 @@ module.exports = {
     host: '',
     database: 'pub',
     user: 'postgres',
-    password: '8e01d6f60c7a846c38d5f99cf3f53383',
+    password: '39f12851f5275222e8b50fddddf04ee4',
     dialect: 'postgres'
   },
 

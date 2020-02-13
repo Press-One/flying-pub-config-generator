@@ -55,9 +55,9 @@ const generateWalletConfig = async (type, config) => {
 const generateAtomConfig = async pubConfig => {
   const config = {
     RUST_LOG: 'debug',
-    POSTGRES_PASSWORD: '8e01d6f60c7a846c38d5f99cf3f53383',
+    POSTGRES_PASSWORD: '39f12851f5275222e8b50fddddf04ee4',
     POSTGRES_DB: 'atom',
-    DATABASE_URL: `postgres://postgres:8e01d6f60c7a846c38d5f99cf3f53383@postgres:5432/atom`,
+    DATABASE_URL: `postgres://postgres:39f12851f5275222e8b50fddddf04ee4@postgres:5432/atom`,
     PRS_BASE_URL: 'https://prs-bp1.press.one/api/chain',
     TOPIC: `${pubConfig.topic.address};http://${isProd ? 'pub' : ip.address()}:${
       pubConfig.port
