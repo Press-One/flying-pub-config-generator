@@ -56,7 +56,7 @@ module.exports = {
     'site.title': '飞帖开发版',
     'site.slogan': '基于区块链的分布式数字内容交易及分发网络',
     'author.page.enabled': true,
-    'subscriptions.enabled': false,
+    'subscriptions.enabled': true,
     'filter.enabled': true,
     'filter.type': 'POPULARITY',
     'filter.popularity.enabled': false,
