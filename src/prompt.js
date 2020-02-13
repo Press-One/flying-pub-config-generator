@@ -14,7 +14,9 @@ exports.mixin = async (type, homeUrl, callbackUrl) => {
   console.log('\n---------------------------------');
   console.log(`请为${siteName}创建一个 Mixin 的 App`);
   console.log('---------------------------------');
-  console.log('\n  - 打开创建页面：https://developers.mixin.one/dashboard');
+  console.log('\n  - 创建 Mixin app 之前，手机需要先安装 Mixin，还没有安装？前往下载：https://mixin.one/messenger');
+  console.log('  - 打开 Mixin 开发者后台，使用 Mixin 扫码登录：https://developers.mixin.one/dashboard');
+  console.log('  - 创建 Mixin App');
   console.log(`  - 备注1：The home uri 填写 ${homeUrl}`);
   console.log(`  - 备注2：The OAuth redirect uri 填写 ${callbackUrl}`);
   await sleep(5000);
