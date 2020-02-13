@@ -1,4 +1,4 @@
-FROM node:10
+FROM dockerhub.qingcloud.com/pressone/node:10
 
 ADD . /app
 
