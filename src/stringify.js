@@ -8,6 +8,7 @@ const comment = {
   queuePort: '队列服务端口',
   testPort: '测试服务端口',
   logo: '站点 logo',
+  favicon: '站点 favicon',
   db: '数据库',
   provider: '支持的登录方式',
   atom: '同步服务',

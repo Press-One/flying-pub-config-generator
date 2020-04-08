@@ -17,6 +17,8 @@ module.exports = {
 
   logo: 'https://xue-images.pek3b.qingstor.com/17-flying-pub.png',
 
+  favicon: 'https://xue-images.pek3b.qingstor.com/favicon.ico',
+
   db: {
     host: '',
     database: 'pub',
