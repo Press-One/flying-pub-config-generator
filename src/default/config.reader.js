@@ -19,6 +19,8 @@ module.exports = {
 
   favicon: 'https://xue-images.pek3b.qingstor.com/favicon.ico',
 
+  staticCDN: '',
+
   db: {
     host: '',
     database: 'reader',
