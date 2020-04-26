@@ -60,6 +60,8 @@ module.exports = {
     'site.title': '写作站开发版 | 飞帖',
     'site.shortTitle': '飞帖写作站',
     'site.slogan': '基于区块链的分布式数字内容交易及分发网络',
+    'notification.enabled': true,
+    'notification.mixin.id': 0,
     'reader.url': '',
     'reader.rulePostUrl': '',
     'wallet.currencies': ['CNB', 'PRS', 'BOX', 'BTC', 'EOS', 'ETH'],

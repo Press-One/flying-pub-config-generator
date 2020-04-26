@@ -118,6 +118,7 @@ const appendMixin = (config, mixin) => {
     ...mixin,
     ...config.provider.mixin
   };
+  config.settings['notification.mixin.id'] = mixin.id;
   return config;
 };
 

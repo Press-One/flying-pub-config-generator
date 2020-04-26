@@ -20,6 +20,8 @@ const comment = {
   'site.name': '站点名称',
   'site.title': '站点标题（浏览器 tab 显示的文案）',
   'site.slogan': '一句话介绍本站点',
+  'notification.enabled': '是否开启 Mixin 消息通知',
+  'notification.mixin.id': 'Mixin id',
   'author.page.enabled': '是否开放作者详情页（取决于你是否提供关注作者的功能）',
   'subscriptions.enabled': '是否提供关注作者的功能',
   'filter.enabled': '是否开启文章筛选器',
