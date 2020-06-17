@@ -16,7 +16,8 @@
     "ip": "^1.1.5",
     "joi": "^14.3.1",
     "prs-utility": "^0.0.6",
-    "request-promise": "^4.2.5"
+    "request-promise": "^4.2.5",
+    "yargs": "^15.3.1"
   },
   "nodemonConfig": {
     "ignore": [

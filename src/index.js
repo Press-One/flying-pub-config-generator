@@ -15,23 +15,31 @@ const {
 } = require('./utils');
 const distDir = `./config`;
 const isProd = process.env.NODE_ENV === 'production';
+const argv = require('yargs').argv;
 
 const main = async () => {
   const pubConfig = await generatePubConfig(defaultPubConfig);
   await sleep(1000);
-  const atomConfig = await generateAtomConfig(pubConfig);
+  const atomEnvConfig = await generateAtomEnvConfig(pubConfig);
   await sleep(1000);
-  await generateReaderConfig(defaultReaderConfig, pubConfig, atomConfig);
+  const atomSettingsTomlConfig = await generateAtomSettingsTomlConfig(pubConfig, atomEnvConfig);
+  await sleep(1000);
+  await generateReaderConfig(defaultReaderConfig, pubConfig, atomSettingsTomlConfig);
   await generateWalletConfig('pub', defaultWalletConfig);
   await generateWalletConfig('reader', defaultWalletConfig);
   console.log('\n你已成功生成所有配置文件！');
+  await sleep(1000);
 };
 
-const generatePubConfig = async config => {
+const generatePubConfig = async (config) => {
   config.encryption = Encryption.createEncryption('pub');
   config.topic = Topic.create();
-  const mixin = await MixinKey.create('pub', config);
-  appendMixin(config, mixin);
+  if (argv.skipMixin) {
+    console.log('跳过，不生成 pub Mixin 配置');
+  } else {
+    const mixin = await MixinKey.create('pub', config);
+    appendMixin(config, mixin);
+  }
   appendVariables('pub', config);
   const filename = 'config.pub.js';
   const variableString = Stringify.getVariableString(config.port, 'PUB');
@@ -52,21 +60,12 @@ const generateWalletConfig = async (type, config) => {
   return config;
 };
 
-const generateAtomConfig = async pubConfig => {
+const generateAtomEnvConfig = async (pubConfig) => {
   const config = {
     RUST_LOG: 'debug',
     POSTGRES_PASSWORD: '39f12851f5275222e8b50fddddf04ee4',
     POSTGRES_DB: 'atom',
-    DATABASE_URL: `postgres://postgres:39f12851f5275222e8b50fddddf04ee4@postgres:5432/atom`,
-    PRS_BASE_URL: 'https://prs-bp1.press.one/api/chain',
-    TOPIC: `${pubConfig.topic.address};http://${isProd ? 'pub' : ip.address()}:${
-      pubConfig.port
-    }/api/webhook/medium`,
-    BIND_ADDRESS: '0.0.0.0:7070',
-    ENCRYPTION_KEY: pubConfig.encryption.aes256Cbc.key,
-    IV_PREFIX: pubConfig.encryption.aes256Cbc.ivPrefix,
-    XML_OUTPUT_DIR: `${__dirname}/output`,
-    THREAD_NUM: '50'
+    DATABASE_URL: `postgres://postgres:39f12851f5275222e8b50fddddf04ee4@postgres:5432/atom`
   };
   let string = '';
   for (let key in config) {
@@ -81,20 +80,58 @@ const generateAtomConfig = async pubConfig => {
   return config;
 };
 
-const generateReaderConfig = async (config, pubConfig, atomConfig) => {
+const generateAtomSettingsTomlConfig = async (pubConfig, atomEnvConfig) => {
+  const config = {
+    '[atom]': {
+      db_url: atomEnvConfig.DATABASE_URL,
+      prs_base_url: "https://prs-bp[1-3].press.one/api/chain",
+      bind_address: '0.0.0.0:7070',
+      thread_num: 50,
+      xml_output_dir: `/app/src/output`
+    },
+    '[[topics]]': {
+      name: 'pub',
+      topic: pubConfig.topic.address,
+      webhook: `http://${isProd ? 'pub' : ip.address()}:${pubConfig.port}/api/webhook/medium`,
+      encryption_key: pubConfig.encryption.aes256Cbc.key,
+      iv_prefix: pubConfig.encryption.aes256Cbc.ivPrefix,
+    }
+  }
+  let string = '';
+  for (let key in config) {
+    string += `${key}\n`;
+    for (let subKey in config[key]) {
+      const value = config[key][subKey];
+      const valueString = typeof value === 'string' ? `"${value}"` : value;
+      string += `${subKey} = ${valueString}\n`;
+    }
+    string += '\n';
+  }
+  const filename = 'Settings.toml';
+  if (!fs.existsSync(distDir)) {
+    fs.mkdirSync(distDir);
+  }
+  await writeFile(path.join(distDir, filename), string);
+  console.log(`\n已生成配置文件 ${distDir}/${filename}`);
+  return config;
+}
+
+const generateReaderConfig = async (config, pubConfig, atomSettingsTomlConfig) => {
   config.encryption = Encryption.createEncryption('reader');
-  const atomPort = atomConfig.BIND_ADDRESS.split(':')[1];
+  const atomPort = atomSettingsTomlConfig['[atom]'].bind_address.split(':')[1];
   config.atom = {
     topic: pubConfig.topic.address,
-    authorsUrl: `http://${
-      isProd ? 'atom_web' : 'localhost'
-    }:${atomPort}/users`,
+    authorsUrl: `http://${isProd ? 'atom_web' : 'localhost'}:${atomPort}/users`,
     postsUrl: `http://${
       isProd ? 'atom_web' : 'localhost'
-    }:${atomPort}/json_posts`
+    }:${atomPort}/json_posts`,
   };
-  const mixin = await MixinKey.create('reader', config);
-  appendMixin(config, mixin);
+  if (argv.skipMixin) {
+    console.log('\n跳过，不生成 reader Mixin 配置');
+  } else {
+    const mixin = await MixinKey.create('reader', config);
+    appendMixin(config, mixin);
+  }
   appendVariables('reader', config);
   const filename = 'config.reader.js';
   const variableString = Stringify.getVariableString(config.port, 'READER');
@@ -116,7 +153,7 @@ const writeConfigJs = async (filename, variableString, configString) => {
 const appendMixin = (config, mixin) => {
   config.provider.mixin = {
     ...mixin,
-    ...config.provider.mixin
+    ...config.provider.mixin,
   };
   config.settings['notification.mixin.id'] = mixin.id;
   return config;
