@@ -15,9 +15,7 @@ module.exports = {
 
   testPort: 9002,
 
-  logo: `https://xue-images.pek3b.qingstor.com/17-flying-pub.png`,
-
-  favicon: 'https://xue-images.pek3b.qingstor.com/favicon.ico',
+  favicon: 'https://img-cdn.xue.cn/favicon.ico',
 
   staticCDN: '',
 
@@ -59,6 +57,7 @@ module.exports = {
     'site.name': '飞帖开发版',
     'site.title': '飞帖开发版',
     'site.slogan': '基于区块链的分布式数字内容交易及分发网络',
+    'site.logo': 'https://img-cdn.xue.cn/17-flying-pub.png',
     'notification.enabled': true,
     'notification.mixin.id': 0,
     'author.page.enabled': true,
