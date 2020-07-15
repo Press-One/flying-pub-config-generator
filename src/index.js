@@ -34,6 +34,7 @@ const main = async () => {
 const generatePubConfig = async (config) => {
   config.encryption = Encryption.createEncryption('pub');
   config.topic = Topic.create();
+  config.auth.apiAccessKey = Encryption.CRS(32);
   if (argv.skipMixin) {
     console.log('跳过，不生成 pub Mixin 配置');
   } else {
@@ -118,6 +119,7 @@ const generateAtomSettingsTomlConfig = async (pubConfig, atomEnvConfig) => {
 
 const generateReaderConfig = async (config, pubConfig, atomSettingsTomlConfig) => {
   config.encryption = Encryption.createEncryption('reader');
+  config.auth.apiAccessKey = pubConfig.auth.apiAccessKey;
   const atomPort = atomSettingsTomlConfig['[atom]'].bind_address.split(':')[1];
   config.atom = {
     topic: pubConfig.topic.address,

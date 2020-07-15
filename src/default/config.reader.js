@@ -77,6 +77,7 @@ module.exports = {
 
   auth: {
     tokenKey: '',
+    apiAccessKey: '',
     whitelist: {
       mixin: [],
       github: []
