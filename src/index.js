@@ -170,6 +170,9 @@ const appendVariables = (type, config) => {
     config.settings[
       'reader.url'
     ] = `http://localhost:${defaultReaderConfig.port}`;
+    config.settings[
+      'reader.apiEndPoint'
+    ] = `http://localhost:${defaultReaderConfig.port}/api`;
   } else if (type === 'reader') {
     config.settings[
       'pub.site.url'

@@ -63,6 +63,7 @@ module.exports = {
     'notification.mixin.id': 0,
     'reader.url': '',
     'reader.rulePostUrl': '',
+    'reader.apiEndPoint': '',
     'wallet.currencies': ['CNB', 'PRS', 'BOX', 'BTC', 'EOS', 'ETH'],
     'auth.providers': ['mixin'],
     'permission.isPrivate': false,
