@@ -171,7 +171,7 @@ const appendVariables = (type, config) => {
   if (type === 'pub') {
     config.settings[
       'reader.url'
-    ] = `http://localhost:${defaultReaderConfig.port}`;
+    ] = `http://localhost:5000`;
     config.settings[
       'reader.apiEndPoint'
     ] = `http://localhost:${defaultReaderConfig.port}/api`;
